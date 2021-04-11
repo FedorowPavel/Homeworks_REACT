@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 // import './App.css';
 import Button from './button';
-import Span from './span';
+// import Span from './span';
 import PropTypes from 'prop-types'
 import Input from './input';
+import DeleteBtn from './delete-button';
+
 
 
 class Counter extends Component {
-  constructor() {
+  constructor(props) {
     super()
     this.state = {
-      number: 0
+      number: props.data.value,
     }
 
     // this.handleIncrement = this.handleIncrement.bind(this)
@@ -34,13 +36,15 @@ class Counter extends Component {
       //if not digit entered
       number: isNaN(updatedNumber) ? this.state.number : updatedNumber
     })
+
   }
+
 
 
   render() {
 
-    let { number } = this.state;
-    const { max, min } = this.props;
+    // let { number } = this.state;
+    const { data: { max, min, value: number } } = this.props;
 
 
     return (
@@ -51,7 +55,6 @@ class Counter extends Component {
           delta={-1}
           disabled={number <= min} />
         
-        {/* <Span text={number} /> */}
         <Input
           value={number}
           changed={(event)=> this.handleInputChange(event, max, min)} />
@@ -61,15 +64,25 @@ class Counter extends Component {
           buttonText='+'
           delta={1}
           disabled={number >= max} />
+        
+        <DeleteBtn onClick={ this.props.deleteCounter }/>
       </div>
     );
   }
   
 }
 
+
+
 Counter.propTypes = {
-  max: PropTypes.number,
-  min: PropTypes.number
+  data: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+    min: PropTypes.number,
+    max: PropTypes.number
+  })
+  // max: PropTypes.number,
+  // min: PropTypes.number
 }
 
 export default Counter;

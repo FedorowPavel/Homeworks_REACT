@@ -4,11 +4,12 @@ import PropTypes from 'prop-types'
 export default class Input extends Component {
     render() {
         return (
-            <div>
+            
                 <input
+                    type="number"
                     value={this.props.value}
                     onChange={this.props.changed}></input>
-            </div>
+            
         )
     }
 }
